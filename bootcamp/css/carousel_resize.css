@@ -1,0 +1,7 @@
+/* carousel_custom.css */
+.carousel-item img {
+    width: 100%; /* Set the width to 100% for responsiveness */
+    height: 100%; /* Let the height adjust automatically according to the aspect ratio */
+    object-fit: cover; /* Maintain the aspect ratio and fill the container */
+  }
+  
