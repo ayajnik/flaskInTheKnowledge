@@ -13,8 +13,15 @@ def sign_up():
 
 @app.route('/thank_you')
 def thank_you():
-    first = requests.args.get('first')
-    last = requests.args.get('last')
+    first_name = requests.get('first')
+    last_name = requests.get('last')
 
-    return render_template('thank_you.html',first=first,last=last)
+    return render_template('thank_you.html',first=first_name,last=last_name)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html')
+
+if __name__=="__main__":
+    app.run(debug=True)
     
