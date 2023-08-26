@@ -24,17 +24,26 @@ Migrate(app,db)
 login_manager = LoginManager()
 
 login_manager.init_app(app)
-login_manager.login_view = 'users.login'
+# We can now pass in our app to the login manager
+login_manager.init_app(app)
+
+# Tell users what view to go to when they need to login.
+login_manager.login_view = "users.login"
 
 
+###########################
+#### BLUEPRINT CONFIGS #######
+#########################
 
-##################################################
-
-
+# Import these at the top if you want
+# We've imported them here for easy reference
 from companyblog.core.views import core
 from companyblog.users.views import users
+from companyblog.blog_posts.views import blog_posts
 from companyblog.error_pages.handlers import error_handler
 
-app.register_blueprint(core)
+# Register the apps
 app.register_blueprint(users)
+app.register_blueprint(blog_posts)
+app.register_blueprint(core)
 app.register_blueprint(error_handler)
