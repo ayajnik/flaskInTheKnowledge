@@ -1,5 +1,4 @@
-# blog_posts/views.py
-from flask import render_template,url_for,flash,request,redirect,Blueprint,request
+from flask import render_template,url_for,flash, redirect,request,Blueprint
 from flask_login import current_user,login_required
 from companyblog import db
 from companyblog.models import BlogPost
