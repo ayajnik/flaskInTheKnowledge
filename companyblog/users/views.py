@@ -1,10 +1,10 @@
 # users/views.py
 from flask import render_template,url_for,flash,redirect,request,Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from puppycompanyblog import db
-from puppycompanyblog.models import User, BlogPost
-from puppycompanyblog.users.forms import RegistrationForm,LoginForm,UpdateUserForm
-from puppycompanyblog.users.picture_handler import add_profile_pic
+from companyblog import db
+from companyblog.models import User, BlogPost
+from companyblog.users.forms import RegistrationForm,LoginForm,UpdateUserForm
+from companyblog.users.picture_handler import add_profile_pic
 
 users = Blueprint('users',__name__)
 
@@ -85,6 +85,12 @@ def account():
     return render_template('account.html',profile_image=profile_image,form=form)
 
 
+@users.route("/<username>")
+def user_posts(username):
+    page = request.args.get('page',1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
+    return render_template('user_blog_posts.html',blog_posts=blog_posts,user=user)
 
 
 
